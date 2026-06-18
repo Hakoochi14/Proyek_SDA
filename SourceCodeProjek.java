@@ -217,9 +217,9 @@ public class SourceCodeProjek {
         // SKENARIO C: Jika semua ruangan Lantai 1 tidak aktif, arahkan ke Jendela Ujung Koridor Lantai 2-4
         if (bestTarget == null || minDistance == Double.POSITIVE_INFINITY) {
             System.out.println("[!] Peringatan: Akses evakuasi Lantai 1 lumpuh total!");
-            System.out.println("[!] Mencari Jendela Darurat di Ujung Koridor Lantai Atas (Lantai 2-4)...");
+            System.out.println("[!] Mencari Jendela Darurat di Ujung Koridor Lantai Atas (Lantai 2-6)...");
             for (EvacuationNode node : nodes.values()) {
-                if (node.type.equals("window") && node.floor >= 2 && node.floor <= 4) {
+                if (node.type.equals("window") && node.floor >= 2 && node.floor <= 6) {
                     if (distances.get(node.id) < minDistance) {
                         minDistance = distances.get(node.id);
                         bestTarget = node.id;
@@ -480,6 +480,9 @@ public class SourceCodeProjek {
         gedung.addNode("Koridor_1411_L4", "corridor", 4);
         gedung.addNode("Koridor_1412_L4", "corridor", 4);
         gedung.addNode("Koridor_1413_L4", "corridor", 4);
+        gedung.addNode("Koridor_Tengah_L4", "corridor", 4);
+        gedung.addNode("Koridor_Depan_L4", "corridor", 4);
+        gedung.addNode("Koridor_Belakang_L4", "corridor", 4);
         gedung.addNode("Jendela_Utara_L4", "window", 4);
         gedung.addNode("Jendela_Depan_L4", "window", 4);
         gedung.addNode("Jendela_Belakang_L4", "window", 4);
@@ -632,12 +635,13 @@ public class SourceCodeProjek {
 
         // 3. SIMULASI
         // Tentukan Posisi User
-        String posisiUser = "1301";
+        String posisiUser = "Public_Space";
         
         // Daftar Lokasi Bencana
         Set<String> daftarBencana = new HashSet<>();
-        daftarBencana.add("koridor_1310_L3");
-
+        daftarBencana.add("Tangga_Depan_L5");
+        daftarBencana.add("Tangga_Belakang_L5");
+        daftarBencana.add("Exit_Depan");
         
         // Cari jalan
         gedung.getEvacuationRoute(posisiUser, daftarBencana);
